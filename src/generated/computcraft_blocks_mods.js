@@ -8,7 +8,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -24,7 +24,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -40,7 +40,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       },
       {
         type: "input_value",
@@ -66,7 +66,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       },
       {
         type: "input_value",
@@ -92,7 +92,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -107,7 +107,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -122,7 +122,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -137,7 +137,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -152,7 +152,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -167,7 +167,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -182,7 +182,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -197,7 +197,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -212,7 +212,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       },
       {
         type: "input_value",
@@ -242,7 +242,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -257,7 +257,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       },
       {
         type: "input_value",
@@ -277,7 +277,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       },
       {
         type: "input_value",
@@ -297,7 +297,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -312,7 +312,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       },
       {
         type: "input_value",
@@ -333,7 +333,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -348,7 +348,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       }
     ],
     colour: "#D17A00",
@@ -363,7 +363,7 @@ const generatedDefs = [
       {
         type: "input_value",
         name: "PERIPHERAL",
-        check: "Peripheral"
+        check: "Table"
       },
       {
         type: "input_value",

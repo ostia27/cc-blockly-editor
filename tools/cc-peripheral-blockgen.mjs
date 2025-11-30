@@ -4,7 +4,12 @@ import fs from "fs";
 import path from "path";
 
 function parseArgs(argv) {
-  const args = { files: [], color: "#4C97FF", categoryName: null, peripheralId: null };
+  const args = {
+    files: [],
+    color: "#4C97FF",
+    categoryName: null,
+    peripheralId: null,
+  };
   for (let i = 2; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === "--color" || arg === "--colour") {
@@ -26,8 +31,8 @@ function parseArgs(argv) {
     process.exit(1);
   }
   if (!args.categoryName) {
-    // Default like "CC: Vat" from peripheral id
-    const label = args.peripheralId[0].toUpperCase() + args.peripheralId.slice(1);
+    const label =
+      args.peripheralId[0].toUpperCase() + args.peripheralId.slice(1);
     args.categoryName = `CC: ${label}`;
   }
   return args;
@@ -72,7 +77,8 @@ function extractLuaFunctions(javaSource) {
   //   public final float getPressure() ...
   //   @LuaFunction(mainThread = true)
   //   public void stop() ...
-  const re = /@LuaFunction(?:\s*\([^)]*\))?[\s\S]*?public\s+([\w<>?,\s\[\]]+?)\s+(\w+)\s*\(([^)]*)\)/g;
+  const re =
+    /@LuaFunction(?:\s*\([^)]*\))?[\s\S]*?public\s+([\w<>?,\s\[\]]+?)\s+(\w+)\s*\(([^)]*)\)/g;
   let m;
   while ((m = re.exec(javaSource)) !== null) {
     const returnType = m[1].trim();
@@ -108,7 +114,7 @@ function generateBlocks(peripheralId, color, methods) {
         {
           type: "input_value",
           name: "PERIPHERAL",
-          check: "Peripheral",
+          check: "Table",
         },
       ];
       for (const p of params || []) {
@@ -157,7 +163,10 @@ function generateBlocks(peripheralId, color, methods) {
       }
       return { jsConstName: blockType, def: base };
     })
-    .filter((x, idx, arr) => arr.findIndex(y => y.jsConstName === x.jsConstName) === idx);
+    .filter(
+      (x, idx, arr) =>
+        arr.findIndex((y) => y.jsConstName === x.jsConstName) === idx,
+    );
 }
 
 function generateBlocksJs(blocks) {
@@ -203,15 +212,21 @@ function generateLuaGenerators(peripheralId, methods) {
   for (const { name, returnType, params } of methods) {
     const blockType = `${peripheralId}_${name}`;
     const hasReturn = mapReturnTypeToOutput(returnType) !== null;
-    lines.push(`generatedForBlockMods["${blockType}"] = function (block, generator) {`);
-    lines.push("  const per = generator.valueToCode(block, 'PERIPHERAL', Order.NONE) || " + "''" + ";");
+    lines.push(
+      `generatedForBlockMods["${blockType}"] = function (block, generator) {`,
+    );
+    lines.push(
+      "  const per = generator.valueToCode(block, 'PERIPHERAL', Order.NONE) || " +
+        "''" +
+        ";",
+    );
 
     const argNames = [];
     for (const p of params || []) {
       const socket = p.name.toUpperCase();
       const def = mapParamTypeToDefault(p.type);
       lines.push(
-        `  const ${p.name} = generator.valueToCode(block, "${socket}", Order.NONE) || ${def};`
+        `  const ${p.name} = generator.valueToCode(block, "${socket}", Order.NONE) || ${def};`,
       );
       argNames.push(p.name);
     }
@@ -219,20 +234,16 @@ function generateLuaGenerators(peripheralId, methods) {
     if (argNames.length) {
       lines.push(`  const args = [${argNames.join(", ")}].join(",");`);
     } else {
-      lines.push("  const args = \"\";");
+      lines.push('  const args = "";');
     }
 
     lines.push("  const argsList = args ? '(' + args + ')' : '()';");
 
     if (hasReturn) {
-      lines.push(
-        "  const code = per + '." + name + "' + argsList;"
-      );
+      lines.push("  const code = per + '." + name + "' + argsList;");
       lines.push("  return [code, Order.NONE];");
     } else {
-      lines.push(
-        "  const code = per + '." + name + "' + argsList + '\\n';"
-      );
+      lines.push("  const code = per + '." + name + "' + argsList + '\\n';");
       lines.push("  return code;");
     }
 
@@ -268,8 +279,16 @@ function main() {
   const luaPath = path.join(outRoot, "lua_mods.js");
 
   fs.writeFileSync(blocksPath, generateBlocksJs(blocks), "utf8");
-  fs.writeFileSync(toolboxPath, generateToolboxCategory(args.categoryName, blocks, args.peripheralId), "utf8");
-  fs.writeFileSync(luaPath, generateLuaGenerators(args.peripheralId, allMethods), "utf8");
+  fs.writeFileSync(
+    toolboxPath,
+    generateToolboxCategory(args.categoryName, blocks, args.peripheralId),
+    "utf8",
+  );
+  fs.writeFileSync(
+    luaPath,
+    generateLuaGenerators(args.peripheralId, allMethods),
+    "utf8",
+  );
 
   console.log("Generated:");
   console.log("  " + blocksPath);
