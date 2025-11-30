@@ -1,3 +1,5 @@
+import { generatedToolboxMods } from "./generated/toolbox_mods";
+
 /**
  * @license
  * Copyright 2023 Google LLC
@@ -14,10 +16,6 @@ listed here.
 export const toolbox = {
   kind: "categoryToolbox",
   contents: [
-    {
-      kind: "customCategory",
-      name: "Custom Blocks",
-    },
     {
       kind: "category",
       name: "Logic",
@@ -53,6 +51,8 @@ export const toolbox = {
         },
       ],
     },
+
+    ...generatedToolboxMods,
     {
       kind: "category",
       name: "Loops",
@@ -330,10 +330,6 @@ export const toolbox = {
         {
           kind: "block",
           type: "text",
-        },
-        {
-          kind: "block",
-          type: "text_multiline",
         },
         {
           kind: "block",

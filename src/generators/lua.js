@@ -5,11 +5,14 @@
  */
 
 import { Order } from "blockly/lua";
+import { generatedForBlockMods } from "../generated/lua_mods";
 
 // Export all the code generators for our custom blocks,
 // but don't register them with Blockly yet.
 // This file has no side effects!
 export const forBlock = Object.create(null);
+
+Object.assign(forBlock, generatedForBlockMods);
 
 forBlock["table"] = function (block, generator) {
   const keys = (generator.valueToCode(block, "KEYS", Order.NONE) || "[]").slice(1, -1).split(", ");

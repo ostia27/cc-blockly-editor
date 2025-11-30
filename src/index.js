@@ -1,5 +1,6 @@
 import * as Blockly from "blockly";
-import { blocks } from "./blocks/computcraft";
+import { blocks } from "./generators/blocks/computcraft";
+import { generatedBlocks } from "./generated/computcraft_blocks_mods";
 import { forBlock } from "./generators/lua";
 import { luaGenerator } from "blockly/lua";
 import { save, load } from "./serialization";
@@ -10,33 +11,96 @@ import "./prismjs/prism-dark.css";
 import "./index.css";
 import "./toolbox_style.css";
 
-import {shadowBlockConversionChangeListener} from '@blockly/shadow-block-converter';
+import { shadowBlockConversionChangeListener } from "@blockly/shadow-block-converter";
+import { registerContinuousToolbox } from "@blockly/continuous-toolbox";
 
 Prism.highlightAll();
 
-const secret = require('./secret.json');
+const secret = require("./secret.json");
 
 // Variables
 const version = "1.1.6";
 const date = new Date().toUTCString();
-
-
 Blockly.common.defineBlocks(blocks);
+Blockly.common.defineBlocks(generatedBlocks);
 Object.assign(luaGenerator.forBlock, forBlock);
+
+// Theme - must be defined BEFORE workspace injection
+const theme = Blockly.Theme.defineTheme("computcraft", {
+  base: Blockly.Themes.Classic,
+  categoryStyles: {
+    table_category: {
+      colour: "#943794",
+    },
+    redstone_category: {
+      colour: "#B01113",
+    },
+    rednet_category: {
+      colour: "#C15100",
+    },
+    turtle_category: {
+      colour: "#00B400",
+    },
+    peripheral_category: {
+      colour: "#BCA400",
+    },
+    disk_category: {
+      colour: "#276359",
+    },
+    filesystem_category: {
+      colour: "#005C9A",
+    },
+    base_category: {
+      colour: "#CFCA77",
+    },
+    http_category: {
+      colour: "#008B8B",
+    },
+    monitor_category: {
+      colour: "#D4A017",
+    },
+    printer_category: {
+      colour: "#9E23FF",
+    },
+  },
+
+  blockStyles: {
+    table_category: {
+      colourPrimary: "#943794",
+      colourSecondary: "#7B2CBF",
+      colourTertiary: "#5C007A",
+    },
+    computcraft_block: {
+      colourPrimary: "#4C97FF",
+      colourSecondary: "#3373CC",
+      colourTertiary: "#2E5BAE",
+    },
+  },
+});
 
 const codeDiv = document.getElementById("generatedCode").firstChild;
 const blocklyDiv = document.getElementById("blocklyDiv");
-const ws = Blockly.inject(blocklyDiv, { toolbox });
+registerContinuousToolbox();
+const ws = Blockly.inject(blocklyDiv, {
+  toolbox,
+  theme: theme,
+  renderer: "zelos",
+  plugins: {
+    flyoutsVerticalToolbox: "ContinuousFlyout",
+    metricsManager: "ContinuousMetrics",
+    toolbox: "ContinuousToolbox",
+  },
+});
 
 ws.addChangeListener(shadowBlockConversionChangeListener);
 
-function htmlDecode(input){
+function htmlDecode(input) {
   var doc = new DOMParser().parseFromString(input, "text/html");
   return doc.documentElement.textContent;
 }
 
 const runCode = () => {
-  const code = luaGenerator.workspaceToCode(ws).replace(/<br>/g, '\n');
+  const code = luaGenerator.workspaceToCode(ws).replace(/<br>/g, "\n");
   codeDiv.textContent = htmlDecode(code);
   Prism.highlightElement(codeDiv);
 };
@@ -49,75 +113,20 @@ ws.addChangeListener((e) => {
 });
 
 ws.addChangeListener((e) => {
-  if (e.isUiEvent || e.type == Blockly.Events.FINISHED_LOADING || ws.isDragging()) {
+  if (
+    e.isUiEvent ||
+    e.type == Blockly.Events.FINISHED_LOADING ||
+    ws.isDragging()
+  ) {
     return;
   }
   runCode();
 });
 
-
-// Theme
-
-const theme = Blockly.Theme.defineTheme('computcraft', {
-  'base': Blockly.Themes.Classic,
-  'categoryStyles': {
-    'table_category': {
-      'colour': '#943794',
-    },
-    'redstone_category': {
-      'colour': '#B01113',
-    },
-    'rednet_category': {
-      'colour': '#C15100',
-    },
-    'turtle_category': {
-      'colour': '#00B400',
-    },
-    'peripheral_category': {
-      'colour': '#BCA400',
-    },
-    'disk_category': {
-      'colour': '#276359',
-    },
-    'filesystem_category': {
-      'colour': '#005C9A',
-    },
-    'base_category': {
-      'colour': '#CFCA77',
-    },
-    'http_category': {
-      'colour': '#008B8B',
-    },
-    'monitor_category': {
-      'colour': '#D4A017',
-    },
-    'printer_category': {
-      'colour': '#9E23FF',
-    },
-  },
-
-  'blockStyles': {
-    'table_category': {
-      'colourPrimary': '#943794',
-      'colourSecondary': '#7B2CBF',
-      'colourTertiary': '#5C007A',
-    },
-    'computcraft_block': {
-      'colourPrimary': '#4C97FF',
-      'colourSecondary': '#3373CC',
-      'colourTertiary': '#2E5BAE',
-    },
-  },
-});
-
-
-ws.setTheme(theme);
-
-
-const copyButton = document.getElementById('copyButton');
-const fileName = document.getElementById('fileName');
-const downloadButton = document.getElementById('downloadButton');
-const loadButton = document.getElementById('loadButton');
+const copyButton = document.getElementById("copyButton");
+const fileName = document.getElementById("fileName");
+const downloadButton = document.getElementById("downloadButton");
+const loadButton = document.getElementById("loadButton");
 
 const copyCode = () => {
   const code = luaGenerator.workspaceToCode(ws);
@@ -126,43 +135,43 @@ const copyCode = () => {
 
 const downloadWorkspace = () => {
   const json = {
-    "name": fileName.value || "workspace",
-    "version": version,
-    "date": date,
-    "workspace": save(ws),
-    "lua": luaGenerator.workspaceToCode(ws)
-  }
-  const blob = new Blob([JSON.stringify(json)], { type: 'application/json' });
+    name: fileName.value || "workspace",
+    version: version,
+    date: date,
+    workspace: save(ws),
+    lua: luaGenerator.workspaceToCode(ws),
+  };
+  const blob = new Blob([JSON.stringify(json)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = url;
-  a.download = (fileName.value || 'workspace.json') + '.ccbe';
+  a.download = (fileName.value || "workspace.json") + ".ccbe";
   a.click();
 };
 
 const downloadLua = () => {
   const code = luaGenerator.workspaceToCode(ws);
-  const blob = new Blob([code], { type: 'text/plain' });
+  const blob = new Blob([code], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = url;
-  a.download = (fileName.value || 'workspace') + '.lua';
+  a.download = (fileName.value || "workspace") + ".lua";
   a.click();
 };
 
 const loadWorkspace = () => {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = '.ccbe';
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".ccbe";
   input.click();
   input.onchange = () => {
     const file = input.files[0];
     const reader = new FileReader();
     reader.onload = () => {
       const json = JSON.parse(reader.result);
-      load(ws, json['workspace']);
-      fileName.value = json['name'];
-      codeDiv.innerText = json['lua'];
+      load(ws, json["workspace"]);
+      fileName.value = json["name"];
+      codeDiv.innerText = json["lua"];
     };
     reader.readAsText(file);
   };
@@ -245,7 +254,6 @@ const loadWorkspace = () => {
 //  };
 //  xhr.send(`api_dev_key=${secret['api_dev_key']}&api_user_name=${username}&api_user_password=${password}`);
 //}
-
 
 copyButton.onclick = copyCode;
 downloadButton.onclick = downloadWorkspace;
