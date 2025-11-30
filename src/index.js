@@ -81,6 +81,7 @@ const theme = Blockly.Theme.defineTheme("computcraft", {
 const codeDiv = document.getElementById("generatedCode").firstChild;
 const blocklyDiv = document.getElementById("blocklyDiv");
 registerContinuousToolbox();
+
 const ws = Blockly.inject(blocklyDiv, {
   toolbox,
   theme: theme,
@@ -123,10 +124,36 @@ ws.addChangeListener((e) => {
   runCode();
 });
 
+const tabBlocksBtn = document.getElementById("tabBlocksBtn");
+const tabCodeBtn = document.getElementById("tabCodeBtn");
+const tabBlocks = document.getElementById("tabBlocks");
+const tabCode = document.getElementById("tabCode");
+
+tabBlocksBtn.addEventListener("click", () => {
+  tabBlocksBtn.classList.add("active");
+  tabCodeBtn.classList.remove("active");
+
+  tabBlocks.style.display = "block";
+  tabCode.style.display = "none";
+
+  Blockly.svgResize(ws);
+});
+
+tabCodeBtn.addEventListener("click", () => {
+  tabCodeBtn.classList.add("active");
+  tabBlocksBtn.classList.remove("active");
+
+  tabBlocks.style.display = "none";
+  tabCode.style.display = "block";
+
+  runCode();
+});
+
 const copyButton = document.getElementById("copyButton");
 const fileName = document.getElementById("fileName");
 const downloadButton = document.getElementById("downloadButton");
 const loadButton = document.getElementById("loadButton");
+const downloadLuaButton = document.getElementById("downloadLuaButton");
 
 const copyCode = () => {
   const code = luaGenerator.workspaceToCode(ws);
@@ -172,6 +199,8 @@ const loadWorkspace = () => {
       load(ws, json["workspace"]);
       fileName.value = json["name"];
       codeDiv.innerText = json["lua"];
+
+      runCode();
     };
     reader.readAsText(file);
   };
