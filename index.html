@@ -15,6 +15,20 @@
                 padding-left: 10px;
             }
 
+            .fork-warning {
+                margin-left: auto; /* This pushes the element to the far right */
+                color: #ffcc00; /* Amber/Yellow warning color */
+                font-size: 14px;
+                font-weight: bold;
+                display: flex;
+                padding: 20px;
+                align-items: center;
+            }
+
+            .fork-warning a {
+                color: aqua; /* Amber/Yellow warning color */
+            }
+
             .tab-btn {
                 background-color: transparent;
                 border: none;
@@ -69,4 +83,4 @@
             #generatedCode {
                 margin-top: 0;
                 height: auto;
-            }</style><script defer="defer" src="bundle.js"></script></head><body><div class="tab-bar"><button class="tab-btn active" id="tabBlocksBtn">Workspace</button> <button class="tab-btn" id="tabCodeBtn">Lua Code</button></div><div id="pageContainer"><div id="tabBlocks" class="tab-content"><div id="blocklyDiv"></div></div><div id="tabCode" class="tab-content" style="display: none"><div id="outputPane"><div style="margin-bottom: 1em"><input name="fileName" id="fileName" value="program" placeholder="File Name"/> <button id="copyButton">Copy Code</button> <button id="downloadButton">Download</button> <button id="downloadLuaButton">Download Lua</button> <button id="loadButton">Load Project</button></div><pre id="generatedCode" class="language-lua"><code></code></pre></div></div></div></body></html>
+            }</style><script defer="defer" src="bundle.js"></script></head><body><div class="tab-bar"><button class="tab-btn active" id="tabBlocksBtn">Workspace</button> <button class="tab-btn" id="tabCodeBtn">Lua Code</button><div class="fork-warning"><span>fork of <a href="https://github.com/Sarxzer/cc-blockly-editor" target="_blank" rel="noopener noreferrer">https://github.com/Sarxzer/cc-blockly-editor</a></span></div></div><div id="pageContainer"><div id="tabBlocks" class="tab-content"><div id="blocklyDiv"></div></div><div id="tabCode" class="tab-content" style="display: none"><div id="outputPane"><div style="margin-bottom: 1em"><input name="fileName" id="fileName" value="program" placeholder="File Name"/> <button id="copyButton">Copy Code</button> <button id="downloadButton">Download</button> <button id="downloadLuaButton">Download Lua</button> <button id="loadButton">Load Project</button></div><pre id="generatedCode" class="language-lua"><code></code></pre></div></div></div></body></html>
