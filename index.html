@@ -1,1 +1,72 @@
-<!doctype html><html><head><meta charset="utf-8"/><title>ComputerCraft : Blockly Editor</title><link rel="icon" href="favicon.ico"><script defer="defer" src="bundle.js"></script></head><body><div id="pageContainer"><div id="outputPane"><pre id="generatedCode" style="min-height: 50%;" class="language-lua"><code></code></pre><input name="fileName" id="fileName" value="program" style="margin-top: 1.5em;"> <button id="copyButton">Copy</button> <button id="downloadButton">Download</button> <button id="downloadLuaButton">Download Lua</button> <button id="loadButton">Load</button></div><div id="blocklyDiv"></div></div></body></html>
+<!doctype html><html><head><meta charset="utf-8"/><title>ComputerCraft : Blockly Editor</title><link rel="icon" href="favicon.ico"/><style>body {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+                font-family: sans-serif;
+            }
+
+            .tab-bar {
+                background-color: #333;
+                display: flex;
+                height: 40px;
+                align-items: center;
+                padding-left: 10px;
+            }
+
+            .tab-btn {
+                background-color: transparent;
+                border: none;
+                color: #aaa;
+                padding: 10px 20px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: bold;
+                text-transform: uppercase;
+                border-bottom: 3px solid transparent;
+                transition: all 0.2s;
+            }
+
+            .tab-btn:hover {
+                color: white;
+                background-color: #444;
+            }
+
+            .tab-btn.active {
+                color: white;
+                border-bottom: 3px solid #4c97ff;
+            }
+
+            #pageContainer {
+                flex: 1;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .tab-content {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            #blocklyDiv {
+                width: 100%;
+                height: 100%;
+            }
+
+            #outputPane {
+                padding: 20px;
+                box-sizing: border-box;
+                height: 100%;
+                overflow: auto;
+                background-color: #1e1e1e;
+                color: white;
+            }
+
+            #generatedCode {
+                margin-top: 0;
+                height: auto;
+            }</style><script defer="defer" src="bundle.js"></script></head><body><div class="tab-bar"><button class="tab-btn active" id="tabBlocksBtn">Workspace</button> <button class="tab-btn" id="tabCodeBtn">Lua Code</button></div><div id="pageContainer"><div id="tabBlocks" class="tab-content"><div id="blocklyDiv"></div></div><div id="tabCode" class="tab-content" style="display: none"><div id="outputPane"><div style="margin-bottom: 1em"><input name="fileName" id="fileName" value="program" placeholder="File Name"/> <button id="copyButton">Copy Code</button> <button id="downloadButton">Download</button> <button id="downloadLuaButton">Download Lua</button> <button id="loadButton">Load Project</button></div><pre id="generatedCode" class="language-lua"><code></code></pre></div></div></div></body></html>
